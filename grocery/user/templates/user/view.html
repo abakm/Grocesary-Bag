@@ -1,0 +1,104 @@
+{% extends 'user/user.html' %}
+{% load static %}
+    {% block head %}
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>View List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
+
+    {% endblock %}
+
+   {% block body %}
+    {% if t %}
+
+    <form method="POST">
+         {% csrf_token %}
+        <div class="container mt-5">
+            <!-- top -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>View Grocery List</h1>
+                </div>
+                <a href="http://127.0.0.1:8000/user/add/">Add Item</a><br>
+                <div class="col-lg-6 float-right">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- Date Filtering-->
+                            <input type="date" name="date" class="form-control">
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="submit" class="btn btn-danger" name='filter' value="filter">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- // top -->
+            <!-- Grocery Cards -->
+            <div class="row mt-4">
+                <!--- -->
+                <!-- Loop This -->
+
+                {% for a in t %}
+
+
+                {% ifequal a.status 1 %}
+                 <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">{{a.name}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{a.quantity}}</h6>
+                          <p class="text-success">BOUGHT</p>
+                            <a href="http://127.0.0.1:8000/user/view/update/{{a.id}}">Update</a>
+                           <a href="http://127.0.0.1:8000/user/view/delete/{{a.id}}" onclick="return sure();">Delete</a>
+                        </div>
+                      </div>
+                </div>
+                {% endifequal %}
+
+                <!-- // Loop -->
+
+                {% ifequal a.status 2 %}
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">{{a.name}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{a.quantity}}</h6>
+                          <p class="text-danger">NOT AVAILABLE</p>
+                             <a href="http://127.0.0.1:8000/user/view/update/{{a.id}}">Update</a>
+                            <a href="http://127.0.0.1:8000/user/view/delete/{{a.id}}" onclick="return sure();">Delete</a>
+                        </div>
+                      </div>
+                </div>
+                {% endifequal %}
+
+
+
+                {% ifequal a.status 0 %}
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">{{a.name}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{a.quantity}}</h6>
+                          <p class="text-info">PENDING</p>
+                             <a href="http://127.0.0.1:8000/user/view/update/{{a.id}}">Update</a>
+                            <a href="http://127.0.0.1:8000/user/view/delete/{{a.id}}" onclick="return sure();">Delete</a>
+                        </div>
+                      </div>
+                </div>
+                 {% endifequal %}
+
+
+                {% endfor %}
+                <!-- // Loop -->
+
+
+            </div>
+        </div>
+        </form>
+{% else %}
+<h3 align="center">No grocesary List</h3>
+
+{% endif %}
+{% endblock %}
+

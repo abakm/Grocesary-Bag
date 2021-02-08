@@ -1,0 +1,40 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/home.css' %}">
+    {% block head %} {% endblock %}
+
+    <title>Grocesary Bag</title>
+</head>
+<body>
+<div class="topnav">
+  <a class="active" href="http://127.0.0.1:8000/">Home</a>
+  <a href="http://127.0.0.1:8000/signup/">Signup</a>
+  <a href="http://127.0.0.1:8000/login/">Login</a>
+</div>
+<marquee direction="right"><h1><b>Grocery Bag</b></h1></marquee>
+{% block body %} {% endblock %}
+</body>
+</html>
+
+
+{% if messages %}
+    {% for message in messages %}
+       <script>alert('{{ message }}')</script>;
+    {% endfor %}
+{% endif %}
+
+
+
+
+    {% block script %}
+
+    {% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+
+{% load static %}
+
+<html lang="en">
+<head>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'user/css/user.css' %}">
+    {% block head %} {% endblock %}
+    <title>User's Grocesary Bag</title>
+</head>
+<body>
+<div class="topnav">
+  <a class="active" href="http://127.0.0.1:8000/user/">Home</a>
+  <a href="http://127.0.0.1:8000/user/add/">Add</a>
+  <a href="http://127.0.0.1:8000/user/view/">View</a>
+    <a href="http://127.0.0.1:8000/">Logout</a>
+</div>
+
+{% if u %}
+<marquee direction="right"><h1><b>{{u.fname}} {{u.mname}} {{u.lname}}'s Grocery Bag</b></h1></marquee>
+{% else %}
+<marquee direction="right"><h1><b>Grocery Bag</b></h1></marquee>
+{% endif %}
+{% block body %} {% endblock %}
+</body>
+</html>
+
+{% if messages %}
+    {% for message in messages %}
+        <script>alert('{{ message }}')</script>;
+    {% endfor %}
+{% endif %}
+
+<script>
+    function sure(){
+        val = confirm("Do you sure to delete this item?");
+        if (val==true){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+</script>
